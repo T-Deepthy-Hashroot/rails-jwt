@@ -42,7 +42,14 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-
+  LetterOpener.configure do |config|
+    # To overrider the location for message storage.
+    # Default value is <tt>tmp/letter_opener</tt>
+    config.location = Rails.root.join('tmp', 'my_mails')
+    # To render only the message body, without any metadata or extra containers or styling.
+    # Default value is <tt>:default</tt> that renders styled message with showing useful metadata.
+    config.message_template = :light
+  end
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
@@ -50,17 +57,18 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.action_mailer.delivery_method = :letter_opener
+
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: ENV['localhost:3001'] }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name:      ENV['deeps1929@gmail.com'],
-    password:       ENV['deeps1234!'],
-    domain:         ENV['localhost:3001'],
-    address:       'smtp.gmail.com',
-    port:          '587',
-    authentication: :plain,
-    enable_starttls_auto: true
+    address:              'smtp.gmail.com',
+    port:                 '587',
+    domain:               'gmail.com',
+    user_name:            'deeps1929@gmail.com',
+    password:             'deeps1234!',
+    authentication:       :plain
   }
 end

@@ -6,12 +6,11 @@ class SessionsController < ActionController::API
             sign_in user
           redirect_back_or user
         else
-          flash.now[:error] = 'Please activate your account by following the 
+          # flash.now[:error] = 'Please activate your account by following the 
           instructions in the account confirmation email you received to proceed'
           render 'new'
         end
         else
-          flash.now[:error] = 'Invalid email/password combination' # Not quite right!
           render 'new'
         end
     end

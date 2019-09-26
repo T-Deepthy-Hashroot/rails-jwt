@@ -18,11 +18,11 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
         UserMailer.registration_confirmation(@user).deliver
-        flash[:success] = "Please confirm your email address to continue"
+        # flash[:success] = "Please confirm your email address to continue"
         redirect_to root_url
         render json: @user, status: :created
       else
-        flash[:error] = "Ooooppss, something went wrong!"
+        # flash[:error] = "Ooooppss, something went wrong!"
       render 'new'
         render json: { errors: @user.errors.full_messages },
                status: :unprocessable_entity
@@ -46,11 +46,10 @@ class UsersController < ApplicationController
       user = User.find_by_confirm_token(params[:id])
       if user
         user.email_activate
-        flash[:success] = "Welcome to the Sample App! Your email has been confirmed.
-        Please sign in to continue."
+        # flash[:success] = "Welcome to the Sample App! Your email has been confirmed.
+        # Please sign in to continue."
         redirect_to signin_url
       else
-        flash[:error] = "Sorry. User does not exist"
         redirect_to root_url
       end
   end
@@ -62,10 +61,10 @@ class UsersController < ApplicationController
       rescue ActiveRecord::RecordNotFound
         render json: { errors: 'User not found' }, status: :not_found
     end
-  
+    
     def user_params
-      params.require(:user).permit(
-         :name, :username, :email, :password, :password_confirmation
+      params.permit(
+        :name, :username, :email, :password, :password_confirmation
       )
     end 
   end
