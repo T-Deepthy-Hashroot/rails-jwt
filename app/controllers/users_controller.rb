@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-    before_action :authorize_request, except: :create
-    before_action :find_user, except: %i[create index]
+    before_action :authorize_request, except: %i[create confirm_email]
+    before_action :find_user, except: %i[create index confirm_email]
   
     # GET /users
     def index
@@ -19,8 +19,8 @@ class UsersController < ApplicationController
       if @user.save
         UserMailer.registration_confirmation(@user).deliver
         # flash[:success] = "Please confirm your email address to continue"
-        redirect_to root_url
-        render json: @user, status: :created
+        redirect_to '/'
+        # render json: @user, status: :created
       else
         # flash[:error] = "Ooooppss, something went wrong!"
       render 'new'
@@ -43,6 +43,7 @@ class UsersController < ApplicationController
     end
 
     def confirm_email
+      byebug
       user = User.find_by_confirm_token(params[:id])
       if user
         user.email_activate
