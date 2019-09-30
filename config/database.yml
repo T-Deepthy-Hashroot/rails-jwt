@@ -23,3 +23,8 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+  production:
+  <<: *default
+  database: rails_jwt_production
+  username: postgres
+  password: password
