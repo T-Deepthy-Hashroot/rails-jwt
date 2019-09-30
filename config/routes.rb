@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root: 'application#home'
   resources :users, param: :_username
   post '/auth/login', to: 'authentication#login'
   # get '/*a', to: 'application#not_found'
