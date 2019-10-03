@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#new'
+  # post 'users#confirm_singup'
   resources :users, param: :_username
   post '/auth/login', to: 'authentication#login'
   # get '/*a', to: 'application#not_found'

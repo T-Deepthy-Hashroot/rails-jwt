@@ -48,11 +48,21 @@ class UsersController < ApplicationController
         user.email_activate
         # flash[:success] = "Welcome to the Sample App! Your email has been confirmed.
         # Please sign in to continue."
-        redirect_to signin_url
+        redirect_to "http://localhost:3000/signup"
       else
         redirect_to root_url
       end
   end
+
+  # def confirm_signup
+  #   user = User.find_by_confirm_token(params[:confirmation_token])
+  #   if user
+  #     user.email_activate
+  #     render json: {success: 'success'}, status: :success
+  #   else
+  #     render json: {errors: 'not found'}, status: :not_found 
+  #   end
+  # end
   
     private
   
