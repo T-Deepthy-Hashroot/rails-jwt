@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-    before_action :authorize_request, except: %i[create confirm_email]
-    before_action :find_user, except: %i[create index confirm_email]
+    before_action :authorize_request, except: %i[create confirm_email confirm_signup]
+    before_action :find_user, except: %i[create index confirm_email confirm_signup]
   
     # GET /users
     def index
@@ -54,15 +54,15 @@ class UsersController < ApplicationController
       end
   end
 
-  # def confirm_signup
-  #   user = User.find_by_confirm_token(params[:confirmation_token])
-  #   if user
-  #     user.email_activate
-  #     render json: {success: 'success'}, status: :success
-  #   else
-  #     render json: {errors: 'not found'}, status: :not_found 
-  #   end
-  # end
+  def confirm_signup
+    user = User.find_by_confirm_token(params[:confirmation_token])
+    if user
+      user.email_activate
+      render json: {success: 'success'}, status: :success
+    else
+      render json: {errors: 'not found'}, status: :not_found 
+    end
+  end
   
     private
   
